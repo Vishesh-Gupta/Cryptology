@@ -1,6 +1,6 @@
 # RSA-Algorithm
 
-This is a Racket function that is made in Full Racket ```#lang racket```.
+A scheme based code made in language ```Racket```  and the internal language for the schema is Full Racket ```#lang racket```.
 
 This is a very simple implementation of RSA encryptology.
 
