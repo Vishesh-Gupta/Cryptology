@@ -1,33 +1,27 @@
 ;;*************************RSA Cryptology*************************;;
-
 ;;***************************Full Racket**************************;;
 #lang racket
-
 ;;***************************Packages*****************************;;
 (require math/number-theory)
-
+(require racket/include)
 ;;***************************Algorithm****************************;;
 (define p (read))
 (define q (read))
 (define n (* p q))
 (define m (* (sub1 p) (sub1 q)))
-(define e (local
-            (define (public-keygen m)
-              (cond
-                [(= (gcd (random-prime m) m)) (list (random-prime m) n)]
-                [else (public-keygen m)])))
-  (public-key m))
 
+;;Public-Key
+;;(public key f m) produces the public-key as per RSA encryption
+;;public-key: 2 predefined value
+(define e (random-prime m))
 
-  (define (private-key e m)
-    (modular-inverse e m))
+;;Private-Key
+;;(private-key e m) produces the private-key as per RSA encryption
+;;private-key: Nat Nat -> Nat
+(define private-key (modular-inverse e m))
 
-  (define msg (read))
-  (define RSA-encryptor
-    (modulo (expt msg e) n))
-  (RSA-encryptor)
+(define (msg-cipher msg)
+  (modular-expt msg e n))
 
-  (define cipher-text (read))
-  (define (RSA-decryptor)
-    (modulo (expt cipher-text (private-key e m)) n))
-  RSA-decryptor
+(define (cipher-msg cipher)
+  (modular-expt cipher private-key n))sc
